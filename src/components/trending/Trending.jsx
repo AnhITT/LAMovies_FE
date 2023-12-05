@@ -1,14 +1,20 @@
-import React, { useState } from "react"
-import { trending } from "~/dummyData"
+import React, { useState, useEffect } from "react"
+import { GetMovieAPI } from "~/api/homes/home"
 import Home from "../homes/Home"
 import "./style.css"
 
 const Trending = () => {
-  const [items, setItems] = useState(trending)
+  const [movie, setMovie] = useState([]);
+  useEffect(()=>{
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    setMovie(await GetMovieAPI());
+  }
   return (
     <>
       <section className='trending'>
-        <Home items={items} />
+        <Home items={movie} />
       </section>
     </>
   )

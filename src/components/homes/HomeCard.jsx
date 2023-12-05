@@ -1,12 +1,12 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-const HomeCard = ({ item: { id, cover, name, rating, time, desc, starring, genres, tags, video } }) => {
+const HomeCard = ({ item: { id, urlImgCover, name, quality, view, time, description, starring, genres, minAge, tags, urlTrailer } }) => {
   return (
     <>
       <div className='box'>
         <div className='coverImage'>
-          <img src={cover} alt='' />
+          <img src={urlImgCover} alt='' />
         </div>
         <div className='content flex'>
           <div className='details row'>
@@ -19,11 +19,10 @@ const HomeCard = ({ item: { id, cover, name, rating, time, desc, starring, genre
                 <i className='fa fa-star'></i>
                 <i className='fa fa-star-half'></i>
               </div>
-              <label>{rating}(Imdb)</label>
-              <span>GP</span>
+              <label>{view} view</label>
+              <span>{minAge}+</span>
               <label>{time}</label>
             </div>
-            <p>{desc}</p>
             <div className='cast'>
               <h4>
                 <span>Starring </span>

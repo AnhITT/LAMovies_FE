@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react"
 import "./home.css"
-import { homeData } from "~/dummyData"
 import Home from "./Home"
-import { getMovieAPI } from "~/api/homes/home"
+import { GetMovieAPI } from "~/api/homes/home"
 
 const Homes = () => {
-  const [items] = useState(homeData)
+  const [movie, setMovie] = useState([]);
   useEffect(()=>{
     fetchData();
   }, []);
   const fetchData = async () => {
-    const data = getMovieAPI();
+    setMovie(await GetMovieAPI());
   }
   return (
     <>
       <section className='home'>
-        <Home items={items} />
+        <Home items={movie} />
       </section>
       <div className='mragin'></div>
     </>
