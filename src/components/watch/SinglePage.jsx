@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './style.css';
 import { useParams } from 'react-router-dom';
-import { recommended } from '~/dummyData';
+import { Link } from 'react-router-dom';
 import { GetMovieAPI } from '~/api/homes/home';
 
 import Upcomming from '../upcoming/Upcomming';
@@ -38,6 +38,14 @@ const SinglePage = () => {
                         </div>
                         <div className="container">
                             <ReactPlayer url={item.urlTrailer} width="100%" height="605px" controls={true} />
+                            <div className="para">
+                                <Link to={`/watchmovieseries/${id}`}>
+                                    <button className="btn-play primary-btn">
+                                        <i className="fas fa-play"></i> PLAY NOW
+                                    </button>
+                                </Link>
+                            </div>
+
                             <div className="para">
                                 <h3>Description:</h3>
                                 <p>{item.description}</p>

@@ -3,6 +3,10 @@ import './style.css';
 import { GetPricingByIdAPI } from '~/api/pricing/pricing';
 import AuthService from '~/service/auth/auth-service';
 import { Link, useParams } from 'react-router-dom';
+import { PayPalButtons } from '@paypal/react-paypal-js';
+import { ToastContainer, toast } from 'react-toastify';
+import { CreateOrder } from '~/api/order/Order';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CheckOut = () => {
     const { id } = useParams();
@@ -25,6 +29,39 @@ const CheckOut = () => {
         if (AuthService.getCurrentUser()) {
             setCurrentUser(await AuthService.getCurrentUser());
         }
+    };
+    const onApproveOrder = (data, actions) => {
+        return actions.order.capture().then((details) => {
+            CreateOrder(currentUser.Id, pricing.id);
+            toast.success('', {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark',
+            });
+        });
+    };
+    const onCreateOrder = (data, actions) => {
+        const uniqueSku = `sku-${Date.now()}`;
+        return actions.order.create({
+            purchase_units: [
+                {
+                    name: pricing.name,
+                    quantity: '1',
+                    sku: uniqueSku,
+                    tax: '0',
+                    description: `${pricing.time} month`,
+                    amount: {
+                        value: pricing.price,
+                    },
+                    value: pricing.price,
+                },
+            ],
+        });
     };
     return (
         <>
@@ -79,9 +116,35 @@ const CheckOut = () => {
 
                                 <li>
                                     <div className="grid grid-3 btn-checkout">
-                                        <button className="btn-paypal" type="submit">
+                                        {/* <button className="btn-paypal" type="submit">
                                             PAYMENT WITH PAYPAL
-                                        </button>
+                                        </button> */}
+                                        <div className="paypal-button-container">
+                                            <PayPalButtons
+                                                style={{
+                                                    color: 'silver',
+                                                    layout: 'horizontal',
+                                                    height: 48,
+                                                    tagline: false,
+                                                    shape: 'pill',
+                                                }}
+                                                createOrder={(data, actions) => onCreateOrder(data, actions)}
+                                                onApprove={(data, actions) => onApproveOrder(data, actions)}
+                                                onCancel={() => {}}
+                                            />
+                                            <ToastContainer
+                                                position="top-right"
+                                                autoClose={5000}
+                                                hideProgressBar={false}
+                                                newestOnTop={false}
+                                                closeOnClick
+                                                rtl={false}
+                                                pauseOnFocusLoss
+                                                draggable
+                                                pauseOnHover
+                                                theme="dark"
+                                            />
+                                        </div>
                                         <Link to="/">
                                             <button className="btn-grid" type="reset">
                                                 BACK

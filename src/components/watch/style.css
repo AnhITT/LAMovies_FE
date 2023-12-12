@@ -49,3 +49,30 @@ video {
 .soical img {
   margin-left: 10px;
 }
+.episodeButtons {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.tapButtonsContainer {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.tapButton {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tapButton:hover {
+  background-color: #c0392b;
+}
+
+.tapButton.active {
+  background-color: #c0392b;
+}

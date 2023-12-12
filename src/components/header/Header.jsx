@@ -52,7 +52,7 @@ const Header = () => {
                         </button>
                     </nav>
                     <div className="account flexSB">
-                        <Link to="/search">
+                        <Link to="/listmovie">
                             <i className="fa fa-search"></i>
                         </Link>
                         <Link to="/notifications">

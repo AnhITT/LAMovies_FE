@@ -65,6 +65,9 @@
 .homeContainer .cast {
   margin: 30px 0;
 }
+.btn-play{
+  cursor: pointer;
+}
 .cast h4 {
   font-weight: 500;
   margin-bottom: 10px;

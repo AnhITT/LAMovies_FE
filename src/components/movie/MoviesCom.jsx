@@ -6,18 +6,16 @@ import ReactPaginate from 'react-paginate';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const Movies = ({ items, title }) => {
-    const [searchTerm, setSearchTerm] = useState('');
+const MoviesCom = ({ items, title }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 8;
 
     // Lọc phim dựa trên tìm kiếm
-    const filteredMovies = items.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
     // Tính toán các giá trị phân trang
     const offset = currentPage * itemsPerPage;
-    const currentItems = filteredMovies.slice(offset, offset + itemsPerPage);
-    const pageCount = Math.ceil(filteredMovies.length / itemsPerPage);
+    const currentItems = items.slice(offset, offset + itemsPerPage);
+    const pageCount = Math.ceil(items.length / itemsPerPage);
 
     // Xử lý sự kiện khi người dùng chuyển trang
     const handlePageClick = (data) => {
@@ -30,14 +28,6 @@ const Movies = ({ items, title }) => {
                 <div className="container">
                     <div className="heading flexSB">
                         <h1>{title}</h1>
-                        <div className="search-bar">
-                            <input
-                                type="text"
-                                placeholder="Search by movie name"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
-                        </div>
                         <Link to="/listmovie">View All</Link>
                     </div>
 
@@ -67,4 +57,4 @@ const Movies = ({ items, title }) => {
     );
 };
 
-export default Movies;
+export default MoviesCom;
