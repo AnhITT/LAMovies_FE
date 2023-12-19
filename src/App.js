@@ -13,7 +13,10 @@ import UserInfo from './pages/user/UserInfo';
 import ChangePassword from './pages/user/ChangePassword';
 import WatchMovie from './pages/movie/WatchMovie';
 import WatchMovieSeries from './pages/movie/WatchMovieSeries';
+import Room from './pages/room/Room';
+
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+
 const initialOptions = {
     'client-id': 'Acvd0tGenxzM4iP1d-K4xqRsUiKndXC120ZPoAf91BUYO_swiyDB2aQ5zNRSL5DMdLoI-jHpBzO-rejO',
     currency: 'USD',
@@ -33,6 +36,7 @@ function App() {
                     <Route exact path="/userinfo" component={UserInfo} />
                     <Route exact path="/changepassword" component={ChangePassword} />
                     <Route path="/singlepage/:id" component={SinglePage} exact />
+                    <Route path="/room/:idRoom/:id" component={Room} exact />
                     <Route path="/watchmovie/:id" component={WatchMovie} exact />
                     <Route path="/watchmovieseries/:id" component={WatchMovieSeries} exact />
                     <PayPalScriptProvider options={initialOptions}>

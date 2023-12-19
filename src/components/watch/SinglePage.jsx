@@ -39,11 +39,19 @@ const SinglePage = () => {
                         <div className="container">
                             <ReactPlayer url={item.urlTrailer} width="100%" height="605px" controls={true} />
                             <div className="para">
-                                <Link to={`/watchmovieseries/${id}`}>
-                                    <button className="btn-play primary-btn">
-                                        <i className="fas fa-play"></i> PLAY NOW
-                                    </button>
-                                </Link>
+                                {item.type === 'oddMovies' ? (
+                                    <Link to={`/watchmovie/${id}`}>
+                                        <button className="btn-play primary-btn">
+                                            <i className="fas fa-play"></i> PLAY NOW
+                                        </button>
+                                    </Link>
+                                ) : (
+                                    <Link to={`/watchmovieseries/${id}`}>
+                                        <button className="btn-play primary-btn">
+                                            <i className="fas fa-play"></i> PLAY NOW
+                                        </button>
+                                    </Link>
+                                )}
                             </div>
 
                             <div className="para">

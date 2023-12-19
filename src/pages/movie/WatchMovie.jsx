@@ -3,15 +3,17 @@ import '../../components/watch/style.css';
 import { useParams } from 'react-router-dom';
 import { GetMovieByID, GetURLOddMovie } from '~/api/homes/home';
 import { CheckPricing } from '~/api/pricing/pricing';
+import { CreateRoom } from '~/api/room/room';
 import AuthService from '~/service/auth/auth-service';
+import { useHistory } from 'react-router-dom';
 
 const WatchMovie = () => {
+    const history = useHistory();
     const { id } = useParams();
     const [movie, setMovie] = useState([]);
     const [url, setUrl] = useState([]);
     const [currentUser, setCurrentUser] = useState(undefined);
     const [check, setCheck] = useState();
-
     useEffect(() => {
         const fetchData = async () => {
             if (AuthService.getCurrentUser()) {
@@ -41,10 +43,16 @@ const WatchMovie = () => {
                 setUrl(data);
             }
         };
-
         fetchData();
     }, [check, id]);
-
+    const handleWatchWithFriends = async () => {
+        try {
+            const response = await CreateRoom(movie.name, currentUser.Id);
+            history.push(`/room/${response}/${id}`);
+        } catch (error) {
+            console.error('Error creating room:', error);
+        }
+    };
     return (
         <>
             {check === true ? (
@@ -62,6 +70,12 @@ const WatchMovie = () => {
                                 allowFullScreen
                                 title="Embedded Content"
                             ></iframe>
+                            <div className="para">
+                                <button id="btnbtn" className="btn-play primary-btn" onClick={handleWatchWithFriends}>
+                                    <i className="fas fa-play"></i> WATCH WITH FRIENDS
+                                </button>
+                            </div>
+
                             <div className="para">
                                 <h3>Description:</h3>
                                 <p>{movie.description}</p>
